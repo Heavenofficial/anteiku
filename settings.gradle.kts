@@ -35,6 +35,7 @@ dependencyResolutionManagement {
         mavenCentral()
         google()
         maven(url = "https://www.jitpack.io")
+        maven(url = "https://dl.frostwire.com/maven") // <--- This is your new engine source
     }
 }
 

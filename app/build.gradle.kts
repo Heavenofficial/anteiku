@@ -181,6 +181,13 @@ kotlin {
 }
 
 dependencies {
+    // Torrent Engine & Local Server
+    val jlibtorrentVersion = "2.0.13.6"
+    implementation("com.frostwire:jlibtorrent:$jlibtorrentVersion")
+    implementation("com.frostwire:jlibtorrent-android-arm64:$jlibtorrentVersion")
+    implementation("com.frostwire:jlibtorrent-android-arm:$jlibtorrentVersion")
+    implementation("com.frostwire:jlibtorrent-android-x86_64:$jlibtorrentVersion")
+    implementation("org.nanohttpd:nanohttpd:2.3.1")
     implementation(projects.i18n)
     implementation(projects.i18nAniyomi)
     implementation(projects.core.archive)

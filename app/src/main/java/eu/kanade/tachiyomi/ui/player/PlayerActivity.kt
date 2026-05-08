@@ -1078,7 +1078,25 @@ class PlayerActivity : BaseActivity() {
         MPVLib.command(
             arrayOf(
                 "loadfile",
-                parseVideoUrl(video.videoUrl),
+                // --- TORRENT ENGINE INTERCEPTOR ---
+        var finalPlayUrl = video.videoUrl
+        
+        if (finalPlayUrl != null && finalPlayUrl.startsWith("magnet:?")) {
+            // 1. Boot up your local server on port 8080
+            val torrentServer = eu.kanade.tachiyomi.network.TorrentServer(8080)
+            torrentServer.start()
+            
+            // 2. Feed the magnet link to the engine
+            // Saves the video chunks temporarily to the app's cache
+            val downloadDir = getExternalFilesDir(null) ?: cacheDir
+            torrentServer.startTorrent(finalPlayUrl, downloadDir)
+            
+            // 3. Trick the player into playing the localhost stream instead
+            finalPlayUrl = "http://127.0.0.1:8080/stream"
+        }
+        
+        // NOW pass 'finalPlayUrl' to the player instead of the raw 'video.videoUrl'
+        // ----------------------------------,
                 "replace",
                 "0",
                 videoOptions,
