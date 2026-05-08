@@ -12,7 +12,7 @@ class TorrentServer(private val port: Int) : NanoHTTPD(port) {
         if (!sessionManager.isRunning) {
             sessionManager.start()
         }
-        
+
         // Tells the engine to start downloading the magnet to the app's cache folder
         sessionManager.download(magnetLink, saveDir)
     }
@@ -20,19 +20,19 @@ class TorrentServer(private val port: Int) : NanoHTTPD(port) {
     override fun serve(session: IHTTPSession): Response {
         // When Aniyomi's player asks for the video, this server catches the request
         val file = currentVideoFile
-        
+
         if (file == null || !file.exists()) {
             return newFixedLengthResponse(
-                Response.Status.NOT_FOUND, 
-                MIME_PLAINTEXT, 
-                "Buffering torrent metadata..."
+                Response.Status.NOT_FOUND,
+                MIME_PLAINTEXT,
+                "Buffering torrent metadata...",
             )
         }
 
         return newFixedLengthResponse(
-            Response.Status.OK, 
-            "video/mp4", 
-            "Streaming video chunks..."
+            Response.Status.OK,
+            "video/mp4",
+            "Streaming video chunks...",
         )
     }
 
