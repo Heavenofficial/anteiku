@@ -1094,7 +1094,6 @@ class PlayerActivity : BaseActivity() {
             // 3. Trick the player into playing the localhost stream instead
             finalPlayUrl = "http://127.0.0.1:8080/stream"
         }
-        
         // NOW pass 'finalPlayUrl' to the player instead of the raw 'video.videoUrl'
         // ----------------------------------,
                 "replace",
